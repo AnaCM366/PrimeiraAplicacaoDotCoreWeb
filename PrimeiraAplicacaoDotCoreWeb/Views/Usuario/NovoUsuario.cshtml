@@ -1,0 +1,21 @@
+﻿@{
+	ViewData["Title"] = "Cadastro Usuario";
+}
+<!--tela de cadastro de usuário-->
+@using (Html.BeginForm("PersistirUsuario", "Usuario", FormMethod.Post)) //FormMethod Metódo do formulário, Post(envia inform.) Get(recebe inform.) //@ = significa que irei escrever em C#
+//estamos criando uma rota em PersistirUsuario
+//seletor -arquitetura para C# Web
+{ //div segundo o marcelo é uma fatia --uma seção do código HTML, é onde irei definir os locais na tela
+	<div>
+		<input name="nome" class="form-control" type="text" placeholder="Nome">
+	</div>
+	<div>
+		<input name="sobrenome" class="form-control" type="text" placeholder="Sobrenome">
+	</div>
+	<div>
+		<input name="email" class="form-control" type="text" placeholder="Email">
+	</div>
+	<div>
+		<button class="btn btn-success">Salvar</button>  <!--podemos colocar mais de uma classe dentro do class-->
+	</div>
+}
