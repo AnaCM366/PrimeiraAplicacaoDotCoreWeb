@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrimeiraAplicacaoDotCoreWeb.Models.Usuario;
+using Service;
 
 namespace PrimeiraAplicacaoDotCoreWeb.Controllers
 {
@@ -6,7 +8,24 @@ namespace PrimeiraAplicacaoDotCoreWeb.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var db = new Db();
+
+            var listaUsuarioDTO = db.GetUsuarios();
+
+            var listaUsuario = new List<Usuario>();
+
+            foreach (var usuarioDTO in listaUsuarioDTO)
+            {
+                var usuario = new Usuario();
+                usuario.Id = usuario.Id;
+                usuario.Nome = usuarioDTO.nome;
+                usuario.Sobrenome = usuarioDTO.sobrenome;
+                usuario.Email = usuarioDTO.email;
+                listaUsuario.Add(usuario);
+
+            }
+
+            return View(listaUsuario);
         }
         public IActionResult NovoUsuario()
         {

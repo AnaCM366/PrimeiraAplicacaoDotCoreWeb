@@ -11,10 +11,10 @@ namespace Service
 
         public Db()
         {
-            _con = new MySqlConnection("Server=127.0.0.1;Database=cadusuario;Uid=root;Pwd=SsMode=none;"); // Coloque aqui a string de conexão com o banco de dados
+            _con = new MySqlConnection("Server=127.0.0.1;Database=cadusuario;Uid=root;Pwd=;SslMode=none;"); // Coloque aqui a string de conexão com o banco de dados
         }
 
-        public List<UsuarioDTO> GetData() //
+        public List<UsuarioDTO> GetUsuarios() //
         {
             _con.Open(); //abrir conexão
             _command = new MySqlCommand(); //criar comando
@@ -35,10 +35,12 @@ namespace Service
                 };
                 ListaDeUsuarios.Add(usuarioDTO); //adicionar usuário à lista
             }
+            _con.Close();
+
             return ListaDeUsuarios;
         }
 
-        public void AddUsuario(string nome)
+        public void AddUsuario(string nome, string sobrenome, string email)
         {
             _con.Open(); //abrir conexão
             _command = new MySqlCommand(); //criar comando
@@ -46,6 +48,12 @@ namespace Service
 
             _command.CommandText = "INSERT INTO USUARIO (Nome, Sobrenome, Email) VALUES (?nome, ?sobrenome, ?email)";
             _command.Parameters.Add("?nome", MySqlDbType.String).Value = nome;
+            _command.Parameters.Add("?sobrenome", MySqlDbType.String).Value = sobrenome;
+            _command.Parameters.Add("?email", MySqlDbType.String).Value = email;
+
+            _command.ExecuteNonQuery();
+
+            _con.Close();
 
         }
     }
